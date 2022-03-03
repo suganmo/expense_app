@@ -1,0 +1,14 @@
+ja:
+  activerecord:
+    models:
+      expense: 経費精算
+    attributes:
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: 確認用パスワード
+        remember_me: 次回から自動的にログイン
+        expenses_day: 日付
+        expenses_note: 備考
+        expenses_money: 経費金額
