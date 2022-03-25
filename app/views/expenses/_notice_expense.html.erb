@@ -1,0 +1,38 @@
+<div class="modal-dialog modal-lg modal-dialog-center ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+        </button>
+        <div>
+            <% @expenses_notices.each do |id, expenses| %>
+             <%= form_with(model: @expense, url: approval_expense_expense_path(User.find(id)), local: true, method: :get) do |f| %>
+              <div class="h10"><%= User.find(id).name %>から経費清算申請</div>
+                <table class="table table-bordered table-striped table-condensed" id="table-expenses">
+                  <thead>
+                    <th>年月</th>
+                    <th>　　申請金額　　</th>
+                    <th>　承認者確認　</th>
+                    <th></th>
+                  </thead>
+                  <% @expenses.each do |att_notice| %>
+                    <%= f.fields_for "expenses[]", att_notice do |d| %>
+                      <tbody>
+                        <tr>
+                          <td><%= l(@first_day, format: :middle) %></td>
+                          <td><%= number_to_currency(att_notice.request_money, unit: "¥ ", strip_insignificant_zeros: true) %></td>
+                          <td><%= d.select :expense_confirmation_status, [["申請中"],["承認"]] , {}, {:class => "form-control"} %>
+                          <td><%= link_to "経費申請を確認", confirm_expense_expense_path(User.find(id)), class: "btn btn-primary btn-sm" %></td>
+                        </tr>
+                      </tbody>
+                    <% end %>
+                  <% end %>
+                </table>
+                <%= f.submit "承認内容を送信する", class: "btn btn-primary center-block h11" %>
+              <% end %>
+            <% end %>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>               

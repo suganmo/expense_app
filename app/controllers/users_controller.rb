@@ -1,10 +1,13 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  protect_from_forgery with: :exception  
   before_action :set_expense, only: :show
   before_action :set_user, only: :show
+
   def show
-    @user = User.find(params[:id]) #追記
-    @superiors = User.where(superior: true).where.not(id: @user.id)
+    @expense = Expense.all
     @expenses_sum = @expenses.all.sum(:expenses_money)
+    @expenses_request = @expenses.find_by(update_expense_day: @first_day)
+    @expenses_request_count = Expense.where(expense_confirmation: @user.name, expense_confirmation_status: "申請中").count
   end
+ 
 end

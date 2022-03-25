@@ -1,76 +1,150 @@
-<% provide(:title, @user.name) %>
-<div>
-  <table border="2", class="expense">
-    <thead class="expense">
-      <tr>
-        <td class="h3" colspan="4">経費精算表</td>
-      </tr>
-      <tr>
-        <td class="h7"><%= link_to "◀", users_path(id: current_user.id, date: @first_day.prev_month) %>
-          <%= l(@first_day, format: :middle) %>
-        <%= link_to "▶", users_path(id: current_user.id, date: @first_day.next_month) %></td>
-        <td class="h7" colspan="2">名前　<%= @user.name %></td>
-      </tr>
-      <tr>
-        <td class="h7">　　　承認者確認　　　　</td>
-        <td class="h7">申請金額　</td>
-      </tr>
-    </thead>
-  </table>
-    <div>
-      <table border="2", class="expensebody">
-        <tbody>
+<% if user_signed_in? %>
+  <% provide(:title, @user.name) %>
+  <td>　</td>
+  <td>　</td>
+  <div>
+    <table class="Lexpense">
+      <thead class="Lexpense">
+        <tr>
+          <td class="h3">
+          <table  class="Lexpense">
           <tr>
-            <th class="h8">日付</th>
-            <th class="h8">　　　　備考　　　　</th>
-            <th class="h8">経費金額</th>
-            <th class="h8">　　　</th>
+          <td><%= link_to "◀", users_path(id: current_user.id, date: @first_day.prev_month) %>
+            <%= l(@first_day, format: :middle) %> 経 費 精 算 表
+          <%= link_to "▶", users_path(id: current_user.id, date: @first_day.next_month) %></td></tr>
+          <tr><td>名前 <%= @user.name %></td></tr>
+           </table>
+           </td>
+           <td class="h6">
+           <table border="", class="Rexpense">
+           <tr>
+          <th class="h7", style="width: 120px">清算確認</th>
+          <td  class="h7", style="width: 200px">
+           <% if @expenses_request.present?%>
+            <% if @expenses_request.user_id == current_user.id %>
+              <% unless @expenses_request == nil %>
+                <% if @expenses_request.expense_confirmation_status == "申請中" %>
+                 <%= @expenses_request.expense_confirmation %>へ申請中
+                <% end %>
+                <% if @expenses_request.expense_confirmation_status == "承認" %>
+                  <%= @expenses_request.expense_confirmation %>承認済
+                <% end %>
+            <% end %>
+            <% else %>
+              <%="―—"%>
+            <% end %>
+          <% else %>
+              <%="―—"%>
+           <% end %>
+          <% end %>
+          </td>
           </tr>
-          </tbody>
-          <tbody>
-          <% @expenses.each do |exp| %>
           <tr>
-           <td><%= l(exp.expenses_day, format: :short)  %></td>
-           <td><%= exp.expenses_note %></td>
-           <td><%= number_to_currency(exp.expenses_money, unit: "￥", strip_insignificant_zeros: true) %></td>
-           <td><%= link_to "削除", expense_destroy_expense_path(exp.id),method: :delete,
-                            data: { confirm: "削除してもよろしいですか？" },
-                            class: "btn btn-primary btn-sm" %></td>
-          </tr>
-          <%end%>
-        </tbody>
-              </table>
-     </div>
-         <div>
-      <table border="2", class="expensebody">
-        <tbody>
-       <tr>
-        <div class="panel panel-default expense_table">
-          <div class="panel-heading">
-            <button type="button" data-toggle="collapse" data-target="#collapse" class="btn btn-primary btn-sm">経費精算追加</button>
-          </div>
-        </div>
-          <div id="collapse" class="panel-collapse collapse">
-            <div class="panel-body"><%= render 'expense_form' %></div>
+          <th class="h7">申請金額</th>
+          <td class="h7">
+           <% if @expenses_request.present?%>
+            <% if @expenses_request.user_id == current_user.id %>
+              <% unless @expenses_request == nil %>
+                <% if @expenses_request.expense_confirmation_status == "申請中" %>
+                <%= number_to_currency(@expenses_request.request_money, unit: " ¥", strip_insignificant_zeros: true) %>
+                <% end %>
+                <% if @expenses_request.expense_confirmation_status == "承認" %>
+                <%= number_to_currency(@expenses_request.request_money, unit: " ¥", strip_insignificant_zeros: true) %>　　
+                <% end %>
+              <% end %>
+              <% else %>
+                <%="　　¥0　　"%>
+            <% end %>
+           <% else %>
+            <%="　　¥0　　"%>
+           <% end %>
+          </td>
         </tr>
-                </tbody>
-     </div>
-     <div>
-        <tfoot>
-          <tr>
-          <th class="h8">登録合計<%= number_to_currency(@expenses_sum, unit: "￥", strip_insignificant_zeros: true)%></th>
-            <td>
-                <%= form_with(model: @user, url: expense_request_expense_path(@user),local: true,  method: :patch) do |f| %>
-                <%#= f.select :expense_confirmation, options_from_collection_for_select(@superiors, :name, :name, 1), {include_blank: true}, { class: "form-control" } %>
-                <%= f.hidden_field :update_expense_day, :value => @first_day %>
-                <%= f.hidden_field :user_id, :value => @user.id %>
-                <%= f.hidden_field :request_money, :value => @expenses_sum %>
-                <%= f.hidden_field :expense_confirmation_status, :value => "申請中" %>
-                <%= f.submit "精算申請", class: "btn-top btn-primary btn-sm " %>
-                <%end%>
-            </td>
-          </tr>
-        </tfoot>
+      </thead>
+    </table>
+    </td>
+    </tr>
+    </table>
+    </div>
+      <% if @expenses_request_count > 0 %>
+        <div>
+          <nav border="", class="expenserequest">
+            <div>
+              <%= link_to "経費清算申請があります。", notice_expense_expense_path(id: current_user.id), remote: true, class:"expenserequest"%>
+            </div>
+          </nav>
+        </div>
+      <% end %>
+        <table border="", class="expensebody">
+          <tbody class="expensebody2">
+            <tr>
+              <th class="h8">日付</th>
+              <th class="h8">　経　費　備　考　</th>
+              <th class="h8", style="width: 130px">経　費　金　額</th>
+              <th class="h8", style="width: 100px">　　　</th>
+            </tr>
+          </tbody>
+          <tbody class="expensebody2">
+            <% @expenses.each do |exp| %>
+              <tr>
+                <% if exp.user_id == current_user.id %>
+                 <td><%= l(exp.expenses_day, format: :short)  %></td>
+                 <td><%= exp.expenses_note %></td>
+                 <td><%= number_to_currency(exp.expenses_money, unit: "¥ ", strip_insignificant_zeros: true) %></td>
+                 <td><%= link_to "削除", expense_destroy_expense_path(exp.id),method: :delete,
+                                  data: { confirm: "削除してもよろしいですか？" },
+                                  class: "btn btn-primary btn-sm" %></td>
+                <% end %>
+              </tr>
+            <%end%>
+          </tbody>
+        </table>
       </div>
-     </table>
-</div>
+           <div>
+          <tbody>
+         <tr>
+          <div class="panel panel-default expense_table">
+            <div class="panel-heading">
+              <button type="button" data-toggle="collapse" data-target="#collapse" class="btn btn-primary btn-md">経 費 追 加</button>
+            </div>
+          </div>
+            <div id="collapse" class="panel-collapse collapse">
+              <div class="panel-body"><%= render 'expense_form' %></div>
+          </tr>
+                  </tbody>
+       </div>
+       <div>
+               <table border="", class="expensebody">
+
+          <tfoot>
+            <tr>
+              <td>
+                  <%= form_with(model: @expense, url: expense_request_expense_path(id: current_user.id),local: true,  method: :get) do |f| %>
+                  <% %>承認者選択
+                  <%= f.select :expense_confirmation, options_from_collection_for_select( User.all, :name, :name, 1), {include_blank: true}, {style:"width: 270px"} %>
+                  <%= f.hidden_field :update_expense_day, :value => @first_day %>
+                  <%= f.hidden_field :user_id, :value => @user.id %>
+                  <%= f.hidden_field :request_money, :value => @expenses_sum %>
+                  <%= f.hidden_field :expense_confirmation_status, :value => "申請中" %>
+             <% if @expenses_request.present?%>
+              <% if @expenses_request.user_id == current_user.id %>
+                <td class="h8", style="width: 130px">合計 <%= number_to_currency(@expenses_sum, unit: "¥ ", strip_insignificant_zeros: true)%></td>
+                <td style="width: 100px"><%= f.submit "清算申請", class: "btn-top btn-primary btn-xsm" %></td>
+            <% else %>
+              <td class="h8", style="width: 130px"><%="合計 ¥0"%></td>
+              <td style="width: 100px"><%= f.submit "清算申請", class: "btn-top btn-primary btn-xsm " %></td>
+                         <% end %>
+                           <% else %>
+              <td class="h8", style="width: 130px"><%="合計 ¥0"%></td>
+              <td style="width: 100px"><%= f.submit "清算申請", class: "btn-top btn-primary btn-xsm " %></td>
+              <%end%>
+            </td>
+            </tr>
+          </tfoot>
+       </table>
+      </div>
+  </div>
+  <% end %>
+  <div id="notice-expense" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+

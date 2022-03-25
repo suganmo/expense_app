@@ -56,7 +56,7 @@ h2, h3, h4, h5, h6 {
 h1 {
   font-size: 16px;
   margin-bottom: 0px;
-  margin-left: 100px;
+  margin-left: 10px;
   background-color:  #FFF;    /* 背景色指定 */
   height: 100px;              /* 高さ指定 */
   width: 459px;               /* 幅指定 */
@@ -72,8 +72,8 @@ h2 {
 }
 
 h3 {
-  font-size: 60px;
-  margin-left: 185px;
+  font-size: 45px;
+  margin-left: 200px;
   height: 100px;              /* 高さ指定 */
   padding: 40px 0px 30px 17px;
 }
@@ -106,7 +106,7 @@ h6 {
 }
 
 .h7 {
-  font-size: 1.3em;
+  font-size: 1.4em;
   letter-spacing: 1px;
   margin-bottom: 30px;
   text-align: center;
@@ -117,6 +117,31 @@ h6 {
   letter-spacing: 1px;
   text-align: center;
 }
+
+.h9 {
+  font-size: 3em;
+  letter-spacing: 25px;
+  width: 70%;
+  height: 60px;
+  margin: auto;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.h10 {
+  font-size: 2em;
+  letter-spacing: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.h11 {
+  font-size: 1em;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
 
 .login {
   margin-top:-190px;
@@ -134,23 +159,41 @@ h6 {
   display: inline-block;
 }
 
-.expense {
-  width: 70%;
-  height: 100px;
+.Lexpense {
+  width: 400px;
+  height: 80px;
   margin: auto;
   text-align: center;
-  margin-top: 40px;
+  margin-top: 20px;
+  margin-bottom: -5px;
+}
+
+.Rexpense {
+  width: 300px;
+  height: 60px;
+  margin: auto;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: -15px;
   background-color:  #D7EEFF;    /* 背景色指定 */
 }
 
 .expensebody {
-  width: 70%;
+  width: 800px;
   height: 30px;
   margin: auto;
   text-align: center;
   margin-bottom: 20px;
   margin-top: 20px;
   background-color:  #D7EEFF;    /* 背景色指定 */
+}
+
+.expensebody2 {
+  background-color:  #D7EEFF;    /* 背景色指定 */
+}
+
+.expensebody3 {
+  background-color:  #FFFF;    /* 背景色指定 */
 }
 
 .expense_table {
@@ -162,9 +205,31 @@ h6 {
   border: 1px #2b2b2b ridge;
 }
 
+.expenserequest {
+  width: 70%;
+  height: 30px;
+  margin: auto;
+  text-align: left;
+  padding:6px 5px;
+  margin-top: 20px;
+  border-color: #FADBDA;
+  color:#FA817D;
+  background-color:  #FADBDA;    /* 背景色指定 */
+  border-radius: 5px;
+}
+
+.expenserequest:hover {
+  color: #F04848;
+  text-decoration: none;
+}
+
 p {
   font-size: 1.1em;
   line-height: 1.7em;
+}
+
+.modal-dialog-center {
+  padding-top: 10%;
 }
 
 /* header */

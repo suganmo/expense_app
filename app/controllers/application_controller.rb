@@ -5,16 +5,24 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     users_path(id: current_user.id)
   end
+    
+  def expense
+  @expense = Expense.find(params[:id])
+  end
   
+  def set_current_user
+    @current_user = User.find_by(id: session[:user_id])
+  end
+
   def set_user
     @user = User.find(params[:id])
   end
   
   def set_expense
+    @user = User.find(params[:id])
     @first_day = params[:date].nil? ?
     Date.current.beginning_of_month : params[:date].to_date
     @last_day = @first_day.end_of_month
-    one_month = [*@first_day..@last_day] # 対象の月の日数を代入します。
     @expenses = Expense.where(expenses_day: @first_day..@last_day).order(:expenses_day)
   end 
   
@@ -24,7 +32,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     # アカウント編集の時にnameとprofileのストロングパラメータを追加
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :profile])
-    devise_parameter_sanitizer.permit(:_expense_form, keys: [:expenses_day, :expenses_note, :expenses_money])
+    devise_parameter_sanitizer.permit(:show, keys: [:user_id])
+    devise_parameter_sanitizer.permit(:notice_expense, keys: [:user_id])
 
   end
 end

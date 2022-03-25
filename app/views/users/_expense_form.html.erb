@@ -8,9 +8,9 @@
   <%= f.text_field :expenses_note, class: "form-control",style:"width: 500px" %>
   
   <%= f.label :経費金額, class: "label-#{yield(:class_text)} " %>
-  <%= f.text_field :expenses_money,data:  { autonumeric: { aSign: '¥ ', mDec: 0 } }, class: "form-control",style:"width: 500px" %><br>
+  <%= f.text_field :expenses_money, class: "form-control",style:"width: 500px" %><br>
   
-  <%= f.submit :新規登録, class: "form-control btn btn-primary #{yield(:class_text)}" ,style:"border: 10px" %>
+  <%= f.submit :新規登録, class: "form-control btn btn-primary #{yield(:class_text)}" %>
   
   </div>
 <% end %>
