@@ -40,7 +40,6 @@ class ExpensesController < ApplicationController
   
   def notice_expense
     @user = User.find(params[:id])
-    @expense = Expense.find(params[:id])
     @expenses_sum = @expenses.all.sum(:expenses_money)
     @expenses_notices =  Expense.where(expense_confirmation: @user.name, expense_confirmation_status: "申請中").group_by(&:user_id)
   end
@@ -58,8 +57,8 @@ class ExpensesController < ApplicationController
       @expenses_request = @expenses.find_by(update_expense_day: @first_day)
       @expenses_request_count = Expense.where(expense_confirmation: @user.name, expense_confirmation_status: "申請中")
       @user = User.find(params[:id])
-          if @expenses_request_count[:expense_confirmation_status] = "承認"
-            @expenses_request_count.update(request_params)
+          if @expenses_request[:expense_confirmation_status] = "承認"
+            @expenses_request.update(request_params)
           flash[:success] = "経費申請を承認しました"
         else
         flash[:danger] = "無効な入力データがあった為更新をキャンセルしました。"

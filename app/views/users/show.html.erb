@@ -1,7 +1,5 @@
 <% if user_signed_in? %>
   <% provide(:title, @user.name) %>
-  <td>　　</td>
-  <td>　</td>
   <div>
     <table class="Lexpense">
       <thead class="Lexpense">
@@ -49,7 +47,7 @@
                 <%= number_to_currency(@expenses_request.request_money, unit: " ¥", strip_insignificant_zeros: true) %>
                 <% end %>
                 <% if @expenses_request.expense_confirmation_status == "承認" %>
-                <%= number_to_currency(@expenses_request.request_money, unit: " ¥", strip_insignificant_zeros: true) %>　　
+                <%= number_to_currency(@expenses_request.request_money, unit: " ¥", strip_insignificant_zeros: true) %>
                 <% end %>
               <% end %>
               <% else %>
@@ -105,7 +103,7 @@
          <tr>
           <div class="panel panel-default expense_table">
             <div class="panel-heading">
-              <button type="button" data-toggle="collapse" data-target="#collapse" class="btn btn-primary btn-md">経 費 追 加</button>
+              <button type="button" data-toggle="collapse" data-target="#collapse" class="btn btn-primary btn-xs">経 費 追 加</button>
             </div>
           </div>
             <div id="collapse" class="panel-collapse collapse">

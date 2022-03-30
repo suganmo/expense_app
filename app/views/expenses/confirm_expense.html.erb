@@ -1,65 +1,74 @@
 <% if user_signed_in? %>
   <% provide(:title, @user.name) %>
+  <td>　　</td>
+  <td>　</td>
   <div>
-    <table border="", class="expense", style="background-color:  #fff;">
-      <thead class="expense",>
+    <table class="Lexpense">
+     <thead class="Lexpense">
         <tr>
-         <div class="h9">経費精算確認</div>
-          <td class="h7", style="width: 400px"><%= l(@first_day, format: :middle) %></td>
-          <td class="h7" colspan="2", style="width: 400px"> 名前　<%= @user.name %></td>
-        </tr>
-        <tr>
-          <td class="h7">
+         <td class="h3">
+          <table  class="Lexpense">
+          <tr>
+          <td><%= link_to "◀", users_path(id: current_user.id, date: @first_day.prev_month) %>
+            <%= l(@first_day, format: :middle) %> 経 費 精 算 表
+          <%= link_to "▶", users_path(id: current_user.id, date: @first_day.next_month) %></td></tr>
+          <tr><td>名前 <%= @user.name %></td></tr>
+           </table>
+           </td>
+           <td class="h6">
+           <table border="", class="Rexpense">
+           <tr>
+          <th class="h7", style="width: 120px">清算確認</th>
+          <td  class="h7", style="width: 200px">
            <% if @expenses_request.present?%>
               <% unless @expenses_request == nil %>
                 <% if @expenses_request.expense_confirmation_status == "申請中" %>
-                  承認者確認　<%= @expenses_request.expense_confirmation %>へ申請中
+                 <%= @expenses_request.expense_confirmation %>へ申請中
                 <% end %>
                 <% if @expenses_request.expense_confirmation_status == "承認" %>
-                  承認者確認  <%= @expenses_request.expense_confirmation %>承認済
-                <% end %>
+                  <%= @expenses_request.expense_confirmation %>承認済
             <% end %>
             <% else %>
-              <%="　　　承認者確認　　　"%>
+              <%="―—"%>
             <% end %>
           <% else %>
-              <%="　　　承認者確認　　　"%>
+              <%="―—"%>
+           <% end %>
           <% end %>
           </td>
+          </tr>
+          <tr>
+          <th class="h7">申請金額</th>
           <td class="h7">
            <% if @expenses_request.present?%>
               <% unless @expenses_request == nil %>
                 <% if @expenses_request.expense_confirmation_status == "申請中" %>
-                　　　申請金額<%= number_to_currency(@expenses_request.request_money, unit: " ¥", strip_insignificant_zeros: true) %>　　
+                <%= number_to_currency(@expenses_request.request_money, unit: " ¥", strip_insignificant_zeros: true) %>
                 <% end %>
                 <% if @expenses_request.expense_confirmation_status == "承認" %>
-                　　　承認金額  <%= number_to_currency(@expenses_request.request_money, unit: " ¥", strip_insignificant_zeros: true) %>　　
-                <% end %>
+                <%= number_to_currency(@expenses_request.request_money, unit: " ¥", strip_insignificant_zeros: true) %>　　
+              <% end %>
               <% else %>
-                <%="　　　　申請金額　　　　"%>
+                <%="　　¥0　　"%>
             <% end %>
            <% else %>
-            <%="　　　　申請金額　　　　"%>
+            <%="　　¥0　　"%>
            <% end %>
           </td>
         </tr>
       </thead>
     </table>
-      <% if @expenses_request_count > 0 %>
-        <div>
-          <nav border="", class="expenserequest">
-            <div>
-              <%= link_to "経費清算申請があります。", notice_expense_expense_path(id: current_user.id), remote: true, class:"expenserequest"%>
-            </div>
-          </nav>
-        </div>
-      <% end %>
-        <table border="", class="expensebody", style="height: 100px">
+    </td>
+    </tr>
+    </table>
+    </div>
+       <table border="", class="expensebody">
           <tbody class="expensebody2">
             <tr>
               <th class="h8">日付</th>
-              <th class="h8">　　　　備　考　　　　　</th>
-              <th class="h8">経費金額</th>
+              <th class="h8">　経　費　備　考　</th>
+              <th class="h8", style="width: 160px">経　費　金　額</th>
+              <th class="h8", style="width: 90px">　　　</th>
             </tr>
           </tbody>
           <tbody class="expensebody2">
@@ -74,8 +83,7 @@
         </table>
       </div>
        <div>
-               <table border="", class="expensebody">
-
+         <table border="", class="expensebody">
           <tfoot>
             <tr>
               <td style="width: 630px">
@@ -86,6 +94,7 @@
                   <%= f.hidden_field :expense_confirmation_status, :value => "申請中" %>
              <% if @expenses_request.present?%>
                 <td class="h8", style="width: 180px">合計 <%= number_to_currency(@expenses_sum, unit: "¥ ", strip_insignificant_zeros: true)%></td>
+                <td style="width: 100px"></td>
               <%end%>
             </td>
             </tr>
