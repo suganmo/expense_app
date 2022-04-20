@@ -14,13 +14,13 @@ Rails.application.routes.draw do
   devise_scope :user do
     root :to => "devise/sessions#new"
     end
+    resource :users, only: [:show, :notice_expense,:confirm_expense]
+    resource :expenses, only: [:new, :notice_expense,:confirm_expense]  
     #resources :user,only: [:show,:index,:edit,:update]
-  resource :users, only: [:show, :notice_expense,:confirm_expense]
-  resource :expenses, only: [:new, :notice_expense,:confirm_expense]  
   devise_for :users, controllers: {
     omniauth_callbacks: "omniauth_callbacks"
   }
-  
+
   resources :expenses do
       collection {post :import}
       member do

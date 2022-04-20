@@ -20,8 +20,9 @@
                       <tbody>
                         <tr>
                           <td><%= l(@first_day, format: :middle) %></td>
-                          <td><%= number_to_currency(att_notice.request_money, unit: "¥ ", strip_insignificant_zeros: true) %></td>
+                          <td><%= number_to_currency(att_notice.expenses_money, unit: "¥ ", strip_insignificant_zeros: true) %></td>
                           <td><%= d.select :expense_confirmation_status, [["申請中"],["承認"]] , {}, {:class => "form-control"} %>
+                           <%= d.hidden_field :expense_confirmation_status, :value => "承認" %>
                           <td><%= link_to "経費申請を確認", confirm_expense_expense_path(User.find(id)), class: "btn btn-primary btn-sm" %></td>
                         </tr>
                       </tbody>

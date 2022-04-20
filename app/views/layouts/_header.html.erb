@@ -4,7 +4,7 @@
     <nav>
       <ul class="nav navbar-nav navbar-right">
       <% if user_signed_in? %>
-        <%#<li class="header"><%= link_to "設定",   edit_user_registration_path, method: :get %></li>%>
+        <%#<li class="header"><%= link_to "設定",   edit_user_registration_path, method: :get %></li>
         <li class="header"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
       <% end %>
       </ul>

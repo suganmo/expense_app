@@ -5,7 +5,7 @@
       <thead class="Lexpense">
         <tr>
           <td class="h3">
-          <table  class="Lexpense">
+          <table  class="Lexpense ">
           <tr>
           <td><%= link_to "◀", users_path(id: current_user.id, date: @first_day.prev_month) %>
             <%= l(@first_day, format: :middle) %> 経 費 精 算 表
@@ -14,7 +14,7 @@
            </table>
            </td>
            <td class="h6">
-           <table border="", class="Rexpense">
+           <table border="1px", class="Rexpense bg-info ">
            <tr>
           <th class="h7", style="width: 120px">清算確認</th>
           <td  class="h7", style="width: 200px">
@@ -66,14 +66,14 @@
     </div>
       <% if @expenses_request_count > 0 %>
         <div>
-          <nav border="", class="expenserequest">
+          <nav border="px", class="expenserequest">
             <div>
               <%= link_to "経費清算申請があります。", notice_expense_expense_path(id: current_user.id), remote: true, class:"expenserequest"%>
             </div>
           </nav>
         </div>
       <% end %>
-        <table border="", class="expensebody">
+        <table border="3px", class="expensebody bg-info ">
           <tbody class="expensebody2">
             <tr>
               <th class="h8">日付</th>
@@ -112,7 +112,7 @@
                   </tbody>
        </div>
        <div>
-               <table border="", class="expensebody">
+               <table border="1px", class="expensebody bg-info ">
 
           <tfoot>
             <tr>
@@ -123,9 +123,8 @@
                   <%= f.hidden_field :update_expense_day, :value => @first_day %>
                   <%= f.hidden_field :user_id, :value => @user.id %>
                   <%= f.hidden_field :request_money, :value => @expenses_sum %>
-                  <%= f.hidden_field :expense_confirmation_status, :value => "申請中" %>
-                <td class="h8", style="width: 130px">合計 <%= number_to_currency(@expenses_sum, unit: "¥ ", strip_insignificant_zeros: true)%></td>
-                <td style="width: 100px"><%= f.submit "清算申請", class: "btn-top btn-primary btn-xsm" %></td>
+                  <%= f.hidden_field :expense_confirmation_status, :value => "承認" %>
+                <td style="width: 100px"><%= f.submit "清算承認", class: "btn-top btn-primary btn-xsm" %></td>
             </td>
             </tr>
           </tfoot>
