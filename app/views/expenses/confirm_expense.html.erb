@@ -9,9 +9,9 @@
          <td class="h3">
           <table  class="Lexpense">
           <tr>
-          <td><%= link_to "◀", users_path(id: current_user.id, date: @first_day.prev_month) %>
+          <td>
             <%= l(@first_day, format: :middle) %> 経 費 精 算 表
-          <%= link_to "▶", users_path(id: current_user.id, date: @first_day.next_month) %></td></tr>
+          </td></tr>
           <tr><td>名前 <%= @user.name %></td></tr>
            </table>
            </td>
@@ -68,7 +68,6 @@
               <th class="h8">日付</th>
               <th class="h8">　経　費　備　考　</th>
               <th class="h8", style="width: 160px">経　費　金　額</th>
-              <th class="h8", style="width: 90px">　　　</th>
             </tr>
           </tbody>
           <tbody class="expensebody2">
@@ -82,24 +81,5 @@
           </tbody>
         </table>
       </div>
-       <div>
-         <table border="", class="expensebody">
-          <tfoot>
-            <tr>
-              <td style="width: 630px">
-                  <%= form_with(model: @user, url: expense_request_expense_path(id: current_user.id),local: true,  method: :patch) do |f| %>
-                  <%= f.hidden_field :update_expense_day, :value => @first_day %>
-                  <%= f.hidden_field :user_id, :value => @user.id %>
-                  <%= f.hidden_field :request_money, :value => @expenses_sum %>
-                  <%= f.hidden_field :expense_confirmation_status, :value => "申請中" %>
-             <% if @expenses_request.present?%>
-                <td class="h8", style="width: 180px">合計 <%= number_to_currency(@expenses_sum, unit: "¥ ", strip_insignificant_zeros: true)%></td>
-                <td style="width: 100px"></td>
-              <%end%>
-            </td>
-            </tr>
-          </tfoot>
-       </table>
-      </div>
   </div>
-  <% end %>
+

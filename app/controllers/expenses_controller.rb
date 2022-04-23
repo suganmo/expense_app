@@ -2,6 +2,10 @@ class ExpensesController < ApplicationController
   #before_action :authenticate_user!
   before_action :set_expense, only: [:expense_request,:confirm_expense, :approval_expense, :notice_expense]
   before_action :set_user, only: :show
+  
+  def expense_id
+    @expenses = Expense.find(params[:id])
+  end
 
   def new
   end
@@ -30,7 +34,7 @@ class ExpensesController < ApplicationController
       @user = User.find(params[:id])
       unless expense_params[:expense_confirmation].blank?
         @expenses.update(expense_params)
-        flash[:success] = "経費申請をしました。"
+        flash[:success] = "経費清算を承認しました。"
       else
         flash[:success] = "申請先を選択してください。"
       end
@@ -56,9 +60,10 @@ class ExpensesController < ApplicationController
     ActiveRecord::Base.transaction do
       @expenses_request = @expenses.find_by(update_expense_day: @first_day)
       @expenses_request_count = Expense.where(expense_confirmation: @user.name, expense_confirmation_status: "申請中")
+      @expenses_notices =  Expense.where(expense_confirmation: @user.name, expense_confirmation_status: "申請中").group_by(&:user_id)
       @user = User.find(params[:id])
-          if @expenses_request[:expense_confirmation_status] = "承認"
-            @expenses_request.update(request_params)
+          if @expenses_notices[:expense_confirmation_status] = "承認"
+            @expenses_notices.update(request_params)
           flash[:success] = "経費申請を承認しました"
         else
         flash[:danger] = "無効な入力データがあった為更新をキャンセルしました。"
