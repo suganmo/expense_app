@@ -176,6 +176,8 @@ h6 {
   margin-top: 30px;
   margin-bottom: -10px;
   background-color:  #D7EEFF;    /* 背景色指定 */
+  border: 1px solid;
+  border-collapse: separate;
 }
 
 .expensebody {
@@ -186,6 +188,8 @@ h6 {
   margin-bottom: 20px;
   margin-top: 20px;
   background-color:  #D7EEFF;    /* 背景色指定 */
+  border: 1px solid;
+  border-collapse: separate;
 }
 
 .expensebody2 {

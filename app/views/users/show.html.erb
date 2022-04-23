@@ -124,7 +124,6 @@
                   <%= f.hidden_field :user_id, :value => @user.id %>
                   <%= f.hidden_field :request_money, :value => @expenses_sum %>
                   <%= f.hidden_field :expense_confirmation_status, :value => "申請中" %>
-                <td class="h8", style="width: 130px">合計 <%= number_to_currency(@expenses_sum, unit: "¥ ", strip_insignificant_zeros: true)%></td>
                 <td style="width: 100px"><%= f.submit "清算申請", class: "btn-top btn-primary btn-xsm" %></td>
             </td>
             </tr>
