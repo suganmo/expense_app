@@ -1,0 +1,18 @@
+/* line 2, app/assets/stylesheets/users.scss */
+.user-table {
+  vertical-align: center;
+  text-align: center;
+  width: 1000px;
+}
+
+/* line 9, app/assets/stylesheets/users.scss */
+#table-expenses th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* line 13, app/assets/stylesheets/users.scss */
+#table-expenses td {
+  vertical-align: middle;
+  text-align: center;
+}
