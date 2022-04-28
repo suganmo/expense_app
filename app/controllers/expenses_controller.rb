@@ -14,7 +14,7 @@ class ExpensesController < ApplicationController
     @expense = Expense.all
     @expenses = Expense.new(expense_params)
     if @expenses.save
-      flash[:success] = '経費を追加しました。'
+      flash[:success] = '経費が追加されました。'
       redirect_to users_path(id: current_user.id)
     else
       render '/users'
