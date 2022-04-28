@@ -4,13 +4,13 @@
   <%= f.label :日付, class: "label-#{yield(:class_text)}" %>
   <%= f.date_field :expenses_day, in:1..100, class: "form-control" %>
   
-  <%= f.label :備考, class: "label-#{yield(:class_text)}" %>
+  <%= f.label :経費備考, class: "label-#{yield(:class_text)}" %>
   <%= f.text_field :expenses_note, class: "form-control",style:"width: 500px" %>
   
   <%= f.label :経費金額, class: "label-#{yield(:class_text)} " %>
   <%= f.text_field :expenses_money, class: "form-control",style:"width: 500px" %><br>
   
-  <%= f.submit :新規登録, class: "form-control btn btn-primary #{yield(:class_text)}" %>
+  <%= f.submit :新規追加, class: "form-control btn btn-primary #{yield(:class_text)}" %>
   
   </div>
 <% end %>

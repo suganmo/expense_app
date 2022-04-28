@@ -14,7 +14,7 @@ class ExpensesController < ApplicationController
     @expense = Expense.all
     @expenses = Expense.new(expense_params)
     if @expenses.save
-      flash[:success] = '新規作成に成功しました。'
+      flash[:success] = '経費を追加しました。'
       redirect_to users_path(id: current_user.id)
     else
       render '/users'
@@ -25,7 +25,7 @@ class ExpensesController < ApplicationController
     @expense = Expense.all
     @expenses = Expense.find(params[:id])
     @expenses.destroy
-    flash[:success] = "#{@expenses.expenses_note}のデータを削除しました。"
+    flash[:success] = "#{@expenses.expenses_note}の経費を削除しました。"
     redirect_to users_path(id: current_user.id)
   end
   
